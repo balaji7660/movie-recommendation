@@ -96,6 +96,56 @@ const MOVIES = [
   {id:120,title:"Train to Busan",year:2016,genre:["Horror","Action","Thriller"],industry:"Korean",language:"Korean",rating:7.6,director:"Yeon Sang-ho",cast:"Gong Yoo, Ma Dong-seok",emoji:"🚆",streaming:["Netflix","Amazon Prime"],desc:"Passengers fight zombie hordes on a speeding train."},
   {id:121,title:"Oldboy",year:2003,genre:["Thriller","Mystery","Drama"],industry:"Korean",language:"Korean",rating:8.4,director:"Park Chan-wook",cast:"Choi Min-sik, Yoo Ji-tae",emoji:"🔍",streaming:["Amazon Prime"],desc:"A man imprisoned for 15 years seeks revenge after his release."},
   {id:122,title:"The Handmaiden",year:2016,genre:["Thriller","Drama","Romance"],industry:"Korean",language:"Korean",rating:8.1,director:"Park Chan-wook",cast:"Kim Min-hee, Ha Jung-woo",emoji:"🎭",streaming:["Amazon Prime"],desc:"A Japanese heiress is manipulated by a conman and a pickpocket."},
+
+  // ANIME & JAPANESE
+  {id:130,title:"Your Name",year:2016,genre:["Animation","Drama","Romance"],industry:"Japanese",language:"Japanese",rating:8.4,director:"Makoto Shinkai",cast:"Ryunosuke Kamiki",emoji:"☄️",streaming:["Netflix"],desc:"Two teenagers share a profound, magical connection upon discovering they are swapping bodies."},
+  {id:131,title:"Spirited Away",year:2001,genre:["Animation","Adventure","Family"],industry:"Japanese",language:"Japanese",rating:8.6,director:"Hayao Miyazaki",cast:"Rumi Hiiragi",emoji:"🏮",streaming:["Netflix"],desc:"A young girl wanders into a world ruled by gods, witches, and spirits."},
+  {id:132,title:"Seven Samurai",year:1954,genre:["Action","Drama"],industry:"Japanese",language:"Japanese",rating:8.6,director:"Akira Kurosawa",cast:"Toshiro Mifune",emoji:"⚔️",streaming:["Amazon Prime"],desc:"A poor village under attack by bandits recruits seven unemployed samurai to help them defend themselves."},
+  {id:133,title:"Demon Slayer: Mugen Train",year:2020,genre:["Animation","Action","Fantasy"],industry:"Japanese",language:"Japanese",rating:8.2,director:"Haruo Sotozaki",cast:"Natsuki Hanae",emoji:"🗡️",streaming:["Netflix","Crunchyroll"],desc:"Tanjiro and his companions join the Flame Hashira Kyojuro Rengoku on a train."},
+
+  // GLOBAL CINEMA
+  {id:140,title:"Amélie",year:2001,genre:["Comedy","Romance"],industry:"French",language:"French",rating:8.3,director:"Jean-Pierre Jeunet",cast:"Audrey Tautou",emoji:"🥖",streaming:["Amazon Prime"],desc:"Amélie is an innocent and naive girl in Paris who decides to help those around her."},
+  {id:141,title:"The Intouchables",year:2011,genre:["Comedy","Drama","Biography"],industry:"French",language:"French",rating:8.5,director:"Olivier Nakache",cast:"François Cluzet, Omar Sy",emoji:"♿",streaming:["Amazon Prime"],desc:"A billionaire becomes a quadriplegic and hires a young man from the projects to be his caregiver."},
+  {id:142,title:"Pan's Labyrinth",year:2006,genre:["Fantasy","Drama","War"],industry:"Spanish",language:"Spanish",rating:8.2,director:"Guillermo del Toro",cast:"Ivana Baquero",emoji:"🧚",streaming:["Netflix"],desc:"In the Falangist Spain of 1944, the young stepdaughter of a sadistic army officer escapes into an eerie but captivating fantasy world."},
+  {id:143,title:"Roma",year:2018,genre:["Drama"],industry:"Spanish",language:"Spanish",rating:7.7,director:"Alfonso Cuarón",cast:"Yalitza Aparicio",emoji:"🏠",streaming:["Netflix"],desc:"A year in the life of a middle-class family's maid in Mexico City in the early 1970s."},
+
+  // ADDITIONAL INDIAN CINEMA
+  {id:150,title:"Kantara",year:2022,genre:["Action","Drama","Thriller"],industry:"Kannada",language:"Kannada",rating:8.2,director:"Rishab Shetty",cast:"Rishab Shetty, Sapthami Gowda",emoji:"🔱",streaming:["Netflix","Amazon Prime"],desc:"A conflict between humanity and nature in a forest."},
+  {id:151,title:"777 Charlie",year:2022,genre:["Adventure","Drama","Comedy"],industry:"Kannada",language:"Kannada",rating:8.7,director:"Kiranraj K",cast:"Rakshit Shetty",emoji:"🐕",streaming:["Amazon Prime"],desc:"Dharma is stuck in a rut with his lonely lifestyle and spends each day in the comfort of his loneliness."},
+  {id:152,title:"Vikant Rona",year:2022,genre:["Action","Adventure","Mystery"],industry:"Kannada",language:"Kannada",rating:7.0,director:"Anup Bhandari",cast:"Kichcha Sudeepa",emoji:"🕵️",streaming:["ZEE5"],desc:"An inspector investigates a series of mysterious events in a remote village."},
+  {id:153,title:"Saripodhaa Sanivaaram",year:2024,genre:["Action","Thriller"],industry:"Tollywood",language:"Telugu",rating:7.5,director:"Vivek Athreya",cast:"Nani, Priyanka Mohan",emoji:"🗓️",streaming:["Netflix"],desc:"A man who channels his anger only on Saturdays faces a ruthless cop."},
+  {id:154,title:"The Goat Life",year:2024,genre:["Drama","Adventure"],industry:"Mollywood",language:"Malayalam",rating:8.1,director:"Blessy",cast:"Prithviraj Sukumaran",emoji:"🐐",streaming:["Netflix"],desc:"The true story of an Indian migrant worker who goes missing in Saudi Arabia."},
+  {id:155,title:"Bramayugam",year:2024,genre:["Horror","Thriller"],industry:"Mollywood",language:"Malayalam",rating:7.9,director:"Rahul Sadasivan",cast:"Mammootty",emoji:"🏚️",streaming:["SonyLIV"],desc:"A folksinger narrowly escapes a slave market and finds himself in a mysterious mansion."},
+  
+  // HOLLYWOOD EXPANSION
+  {id:160,title:"The Batman",year:2022,genre:["Action","Crime","Drama"],industry:"Hollywood",language:"English",rating:7.8,director:"Matt Reeves",cast:"Robert Pattinson",emoji:"🦇",streaming:["HBO Max"],desc:"Batman unearths corruption in Gotham City while chasing the Riddler."},
+  {id:161,title:"Everything Everywhere All at Once",year:2022,genre:["Sci-Fi","Action","Comedy"],industry:"Hollywood",language:"English",rating:7.8,director:"Daniels",cast:"Michelle Yeoh",emoji:"🥯",streaming:["Hulu"],desc:"A middle-aged Chinese immigrant is swept up into an insane adventure."},
+  {id:162,title:"The Whale",year:2022,genre:["Drama"],industry:"Hollywood",language:"English",rating:7.7,director:"Darren Aronofsky",cast:"Brendan Fraser",emoji:"🐋",streaming:["Apple TV+"],desc:"A reclusive, morbidly obese English teacher attempts to reconnect with his estranged teenage daughter."},
+  {id:163,title:"Spider-Man: Across the Spider-Verse",year:2023,genre:["Animation","Action","Adventure"],industry:"Hollywood",language:"English",rating:8.6,director:"Joaquim Dos Santos",cast:"Shameik Moore",emoji:"🕸️",streaming:["Netflix"],desc:"Miles Morales catapults across the Multiverse."},
+  {id:164,title:"John Wick: Chapter 4",year:2023,genre:["Action","Crime","Thriller"],industry:"Hollywood",language:"English",rating:7.7,director:"Chad Stahelski",cast:"Keanu Reeves",emoji:"🔫",streaming:["Amazon Prime"],desc:"John Wick uncovers a path to defeating the High Table."},
+  {id:165,title:"Gladiator II",year:2024,genre:["Action","Drama","Adventure"],industry:"Hollywood",language:"English",rating:6.8,director:"Ridley Scott",cast:"Paul Mescal",emoji:"⚔️",streaming:["Paramount+"],desc:"Lucius, the grandson of Marcus Aurelius, enters the Colosseum."},
+
+  // BOLLYWOOD EXPANSION
+  {id:170,title:"Stree 2",year:2024,genre:["Horror","Comedy"],industry:"Bollywood",language:"Hindi",rating:7.6,director:"Amar Kaushik",cast:"Shraddha Kapoor, Rajkummar Rao",emoji:"👻",streaming:["Amazon Prime"],desc:"Chanderi is being haunted by a headless man Sarkata."},
+  {id:171,title:"Fighter",year:2024,genre:["Action","Drama"],industry:"Bollywood",language:"Hindi",rating:6.8,director:"Siddharth Anand",cast:"Hrithik Roshan, Deepika Padukone",emoji:"🛩️",streaming:["Netflix"],desc:"Top IAF aviators come together in the face of imminent danger."},
+  {id:172,title:"Munjya",year:2024,genre:["Horror","Comedy"],industry:"Bollywood",language:"Hindi",rating:7.1,director:"Aditya Sarpotdar",cast:"Abhay Verma",emoji:"👺",streaming:["Netflix"],desc:"A young man's visit to his native village unveils a dark family secret."},
+  {id:173,title:"Crew",year:2024,genre:["Comedy","Crime"],industry:"Bollywood",language:"Hindi",rating:6.5,director:"Rajesh A Krishnan",cast:"Tabu, Kareena Kapoor Khan, Kriti Sanon",emoji:"✈️",streaming:["Netflix"],desc:"Three hard-working cabin crew members' lives lead to unexpected situations."},
+  {id:174,title:"Shaitaan",year:2024,genre:["Horror","Thriller"],industry:"Bollywood",language:"Hindi",rating:7.0,director:"Vikas Bahl",cast:"Ajay Devgn, R. Madhavan",emoji:"🔥",streaming:["Netflix"],desc:"A family's vacation turns into a nightmare when they meet a stranger."},
+
+  // TOLLYWOOD EXPANSION
+  {id:180,title:"Lucky Baskhar",year:2024,genre:["Drama","Crime"],industry:"Tollywood",language:"Telugu",rating:8.2,director:"Venky Atluri",cast:"Dulquer Salmaan",emoji:"💰",streaming:["Netflix"],desc:"A bank cashier creates an extraordinary fortune through illegal means."},
+  {id:181,title:"Guntur Kaaram",year:2024,genre:["Action","Drama"],industry:"Tollywood",language:"Telugu",rating:5.8,director:"Trivikram Srinivas",cast:"Mahesh Babu",emoji:"🌶️",streaming:["Netflix"],desc:"A rowdy from Guntur falls in love and rediscovers his family legacy."},
+  {id:182,title:"Hanu-Man",year:2024,genre:["Fantasy","Action","Adventure"],industry:"Tollywood",language:"Telugu",rating:8.6,director:"Prasanth Varma",cast:"Teja Sajja",emoji:"🐒",streaming:["ZEE5"],desc:"A young man gets the superpowers of Lord Hanuman."},
+  {id:183,title:"The Greatest of All Time",year:2024,genre:["Action","Sci-Fi","Thriller"],industry:"Kollywood",language:"Tamil",rating:6.4,director:"Venkat Prabhu",cast:"Vijay",emoji:"🐐",streaming:["Netflix"],desc:"A former field agent from the SATS team travels to Bangkok for a mission."},
+  {id:184,title:"Raayan",year:2024,genre:["Action","Crime","Drama"],industry:"Kollywood",language:"Tamil",rating:6.9,director:"Dhanush",cast:"Dhanush",emoji:"🗡️",streaming:["Amazon Prime"],desc:"A common man is forced to protect his family and take revenge."},
+
+  // KOREAN & ANIME EXPANSION
+  {id:190,title:"Squid Game",year:2021,genre:["Thriller","Drama","Action"],industry:"Korean",language:"Korean",rating:8.0,director:"Hwang Dong-hyuk",cast:"Lee Jung-jae",emoji:"⭕",streaming:["Netflix"],desc:"Hundreds of cash-strapped contestants accept an invitation to compete in children's games."},
+  {id:191,title:"Kingdom",year:2019,genre:["Horror","Action","History"],industry:"Korean",language:"Korean",rating:8.3,director:"Kim Seong-hun",cast:"Ju Ji-hoon",emoji:"🧟",streaming:["Netflix"],desc:"In the Joseon period, a crown prince investigates a mysterious plague."},
+  {id:192,title:"All of Us Are Dead",year:2022,genre:["Horror","Action","Drama"],industry:"Korean",language:"Korean",rating:7.5,director:"Lee J.Q.",cast:"Park Ji-hu",emoji:"🏫",streaming:["Netflix"],desc:"High school students become trapped in their school during a zombie outbreak."},
+  {id:193,title:"Spirited Away",year:2001,genre:["Animation","Adventure","Family"],industry:"Japanese",language:"Japanese",rating:8.6,director:"Hayao Miyazaki",cast:"Rumi Hiiragi",emoji:"🐉",streaming:["Netflix"],desc:"A ten-year-old girl wanders into a world ruled by gods, witches and spirits."},
+  {id:194,title:"Your Name",year:2016,genre:["Animation","Romance","Fantasy"],industry:"Japanese",language:"Japanese",rating:8.4,director:"Makoto Shinkai",cast:"Ryunosuke Kamiki",emoji:"☄️",streaming:["Netflix"],desc:"Two teenagers share a profound, magical connection upon discovering they are swapping bodies."},
+  {id:195,title:" Suzume",year:2022,genre:["Animation","Adventure","Fantasy"],industry:"Japanese",language:"Japanese",rating:7.7,director:"Makoto Shinkai",cast:"Nanoka Hara",emoji:"🚪",streaming:["Netflix"],desc:"A 17-year-old girl named Suzume helps a mysterious young man close doors from another world."},
 ];
 
 // ── STREAMING BADGE MAP ─────────────────────────────────────
@@ -385,6 +435,13 @@ buildChart('industryChart',countBy('industry'),k=>IND_COLORS[k]||'#888');
 buildChart('languageChart',countBy('language'),k=>LANG_COLORS[k]||'#888');
 buildChart('genreChart',countGenres(),k=>GENRE_COLORS[k]||'#888');
 buildChart('streamingChart',countStreaming(),k=>STREAM_COLORS[k]||'#888');
+
+// --- SIMULATED USER ACTIVITY ---
+function buildUserActivity() {
+    const data = { 'Active Now': 12, 'Today': 84, 'This Week': 542, 'Total Users': 1205 };
+    buildChart('userActivityChart', data, k => k.includes('Active') ? '#10b981' : '#a855f7');
+}
+buildUserActivity();
 
 // Animate bars on scroll
 const barIO=new IntersectionObserver(entries=>{

@@ -140,6 +140,140 @@ async function initApp() {
     loadRow('discover/movie?with_genres=878',  'scifiCards'),
     loadRow('discover/movie?with_genres=27',   'horrorCards'),
   ]);
+  
+  // Show base movie count
+  // Initialize UI components
+  updateSearchTags();
+  renderWatchlist();
+  initVoiceSearch();
+
+  const counter = document.getElementById('resultsCount');
+  if (counter) {
+    counter.textContent = '900k+ Movies';
+    counter.style.display = 'block';
+  }
+}
+
+// ── Personal Watchlist ────────────────────────────────────────
+function toggleWatchlist(id, type, btn) {
+    let list = JSON.parse(localStorage.getItem('cineworld_watchlist') || '[]');
+    const exists = list.find(item => item.id === id && item.type === type);
+    
+    if (exists) {
+        list = list.filter(item => !(item.id === id && item.type === type));
+        btn.classList.remove('active');
+    } else {
+        list.push({ id, type, addedAt: new Date().getTime() });
+        btn.classList.add('active');
+    }
+    
+    localStorage.setItem('cineworld_watchlist', JSON.stringify(list));
+    renderWatchlist();
+}
+
+async function renderWatchlist() {
+    const list = JSON.parse(localStorage.getItem('cineworld_watchlist') || '[]');
+    const row = document.getElementById('watchlistRow');
+    const container = document.getElementById('watchlistCards');
+    if (!container) return;
+    
+    if (list.length === 0) {
+        row.style.display = 'none';
+        return;
+    }
+    
+    row.style.display = 'block';
+    container.innerHTML = '';
+    
+    // Reverse to show newest first
+    const items = [...list].reverse();
+    for (const item of items) {
+        try {
+            const m = await api(`${item.type}/${item.id}`);
+            if (!m.media_type) m.media_type = item.type;
+            container.appendChild(createCard(m));
+        } catch(e) {}
+    }
+}
+
+function clearWatchlist() {
+    if (confirm("Clear your entire watchlist?")) {
+        localStorage.setItem('cineworld_watchlist', '[]');
+        renderWatchlist();
+    }
+}
+
+// ── Voice Search (Speech-to-Text) ─────────────────────────────
+function initVoiceSearch() {
+    const btn = document.getElementById('voiceSearchBtn');
+    const input = document.getElementById('globalSearch');
+    const recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+    
+    if (!recognition) {
+        btn.style.display = 'none';
+        return;
+    }
+    
+    const rec = new recognition();
+    rec.continuous = false;
+    rec.lang = 'en-US';
+    
+    btn.onclick = () => {
+        try {
+            rec.start();
+            btn.classList.add('recording');
+            btn.textContent = '🛑';
+        } catch(e) { rec.stop(); }
+    };
+    
+    rec.onresult = (e) => {
+        const text = e.results[0][0].transcript;
+        input.value = text;
+        liveSearch(text);
+        logSearch(text);
+        btn.textContent = '🎙️';
+        btn.classList.remove('recording');
+    };
+    
+    rec.onspeechend = () => {
+        rec.stop();
+        btn.textContent = '🎙️';
+        btn.classList.remove('recording');
+    };
+    
+    rec.onerror = () => {
+        btn.textContent = '🎙️';
+        btn.classList.remove('recording');
+    };
+}
+
+// ── Search History & Tracking ──────────────────────────────────
+function logSearch(q) {
+  if (!q || q.length < 2) return;
+  let history = JSON.parse(localStorage.getItem('cineworld_history') || '[]');
+  // Remove duplicate and add to top
+  history = [q, ...history.filter(h => h.toLowerCase() !== q.toLowerCase())].slice(0, 8);
+  localStorage.setItem('cineworld_history', JSON.stringify(history));
+  updateSearchTags();
+}
+
+function updateSearchTags() {
+  const container = document.getElementById('recentSearchTags');
+  if (!container) return;
+  const history = JSON.parse(localStorage.getItem('cineworld_history') || '[]');
+  if (history.length === 0) {
+      document.getElementById('recentSearches').style.display = 'none';
+      return;
+  }
+  document.getElementById('recentSearches').style.display = 'flex';
+  container.innerHTML = history.map(h => `<span class="rs-tag" onclick="quickSearch('${h.replace(/'/g,"\\'")}')">${h}</span>`).join('');
+}
+
+function quickSearch(q) {
+    const input = document.getElementById('globalSearch');
+    input.value = q;
+    liveSearch(q);
+    input.focus();
 }
 
 // ── Dataset Collection (CSV) ──────────────────────────────────
@@ -297,10 +431,16 @@ function createCard(movie, showNewBadge = false) {
   const year   = (movie.release_date || movie.first_air_date || '').slice(0, 4);
   const title  = movie.title || movie.name || 'Unknown';
   const isNew  = showNewBadge && year == new Date().getFullYear();
+  
+  // Watchlist check
+  const watchlist = JSON.parse(localStorage.getItem('cineworld_watchlist') || '[]');
+  const isInWatchlist = watchlist.some(item => item.id === movie.id);
+
   div.innerHTML = `
     ${poster ? `<img class="card-poster" src="${poster}" alt="${title}" loading="lazy"/>` : `<div class="card-poster" style="background:#1a1a1a;display:flex;align-items:center;justify-content:center;font-size:3rem">🎬</div>`}
     <div class="card-rating-badge">⭐ ${rating}</div>
     ${isNew ? '<div class="card-new-badge">NEW</div>' : ''}
+    <button class="card-fav-btn ${isInWatchlist?'active':''}" onclick="event.stopPropagation();toggleWatchlist(${movie.id},'${movie.media_type||'movie'}',this)" title="Add to Watchlist">❤️</button>
     <div class="card-overlay" onclick="event.stopPropagation();openMovie(${movie.id},'${movie.media_type||'movie'}')">
       <button class="card-play-btn" onclick="event.stopPropagation();playTrailer(${movie.id},'${movie.media_type||'movie'}')">▶</button>
       <div class="card-title-ov">${title}</div>
@@ -584,8 +724,24 @@ function renderModal(m, credits, videos, providers, similar, type, autoPlay, sea
     }).join('');
   } else {
     const isReleased = m.status === 'Released' || (m.release_date && new Date(m.release_date) < new Date());
-    streamHTML = `<span class="no-stream">${isReleased ? 'Not available for online streaming/renting in your region.' : 'This movie is not yet released for streaming.'}</span>`;
+    const query = encodeURIComponent(`${m.title || m.name} ${year} where to watch streaming digital`);
+    
+    streamHTML = `
+      <div class="no-stream-container">
+        <div class="no-stream-content">
+          <div class="no-stream-icon">⚡️</div>
+          <div class="no-stream-text">
+            <h4>${isReleased ? 'Global Provider Data Unavailable' : 'Coming Soon to Streaming'}</h4>
+            <p>${isReleased ? 'We couldn\'t find active streaming links in our current provider database.' : 'This title hasn\'t been released for digital streaming yet.'}</p>
+          </div>
+        </div>
+        <div class="no-stream-actions">
+          <button class="ns-btn google" onclick="window.open('https://www.google.com/search?q=${query}','_blank')">🌐 Search Google</button>
+          <button class="ns-btn justwatch" onclick="window.open('https://www.justwatch.com/search?q=${encodeURIComponent(m.title || m.name)}','_blank')">🍿 Check JustWatch</button>
+        </div>
+      </div>`;
   }
+
 
   // Similar movies
   const simCards = (similar.results || []).slice(0, 10).map(s => {
@@ -662,7 +818,10 @@ function setupSearch() {
     clearTimeout(searchTimer);
     const q = this.value.trim();
     if (!q) { dropdown.classList.remove('open'); dropdown.innerHTML = ''; return; }
-    searchTimer = setTimeout(() => liveSearch(q), 400);
+    searchTimer = setTimeout(() => {
+        liveSearch(q);
+        logSearch(q); // Save search locally
+    }, 400);
   });
 
   document.addEventListener('click', e => {
@@ -675,7 +834,6 @@ async function liveSearch(query) {
   try {
     const data = await api(`search/multi?query=${encodeURIComponent(query)}&include_adult=false`);
     const results = (data.results || []).filter(r => r.media_type !== 'person').slice(0, 8);
-    if (!results.length) { dropdown.classList.remove('open'); return; }
     dropdown.innerHTML = results.map(m => {
       const poster = m.poster_path ? `${IMG_BASE}w92${m.poster_path}` : '';
       const title  = m.title || m.name;
@@ -693,6 +851,15 @@ async function liveSearch(query) {
       </div>`;
     }).join('');
     dropdown.classList.add('open');
+    
+    // Update global counter
+    const counter = document.getElementById('resultsCount');
+    if (counter && data.total_results) {
+      counter.textContent = data.total_results.toLocaleString() + ' Found';
+      counter.style.background = 'rgba(16,185,129,0.1)';
+      counter.style.borderColor = 'rgba(16,185,129,0.3)';
+      counter.style.color = '#10b981';
+    }
   } catch {}
 }
 
@@ -730,6 +897,15 @@ async function loadGrid() {
     const data = await api(ep);
     container.innerHTML = '';
     (data.results || []).forEach(m => container.appendChild(createCard(m, false)));
+
+    // Update global counter
+    const counter = document.getElementById('resultsCount');
+    if (counter && data.total_results) {
+      counter.textContent = data.total_results.toLocaleString() + ' in ' + document.getElementById('gridTitle').textContent.replace('🎬 ','');
+      counter.style.background = 'rgba(168,85,247,0.1)';
+      counter.style.borderColor = 'rgba(168,85,247,0.3)';
+      counter.style.color = '#a855f7';
+    }
 
     // Pagination
     renderPagination(data.page, data.total_pages);

@@ -24,14 +24,37 @@ Since CineWorld is a pure frontend application, it requires no complex installat
    - Open `index.html` in any modern browser (Chrome, Edge, etc.).
    - Enter your API keys on the launch screen.
 
-## 📁 File Structure
-
 - `index.html`: The core structure and layout.
 - `style.css`: Modern, dark-themed styling with responsive design.
-- `app.js`: Main application logic for API fetching and dynamic UI updates.
-- `script.js`: The underlying ML recommendation engine and dataset collection logic.
+- `app.js`: Main application logic for real-time TMDB fetching.
+- `script.js`: The browser-side ML recommendation engine for instant similarity scores.
+- `recommender.py`: The core Python ML engine implementing SVD-based Collaborative Filtering.
+- `ML_REPORT.md`: Formal project documentation for the NRCM Machine Learning initiative.
+
+## 🐍 Python Recommendation Engine
+
+The project now includes a standalone Python implementation (`recommender.py`) for advanced model training:
+
+1.  **Content-Based**: Uses `TF-IDF` and `Cosine Similarity`.
+2.  **Collaborative Filtering**: Uses the `Surprise` library's `SVD` (Singular Value Decomposition) algorithm.
+3.  **Hybrid Modeling**: Ready to merge user-rating predictions with content attributes.
+
+**To run the Python core:**
+```bash
+pip install -r requirements.txt
+python recommender.py
+```
+
+## 📈 ML Project Report (NRCM)
+
+A comprehensive project report is available in [ML_REPORT.md](./ML_REPORT.md). It details:
+- **Project Objectives**: Why machine learning is vital for recommendation systems.
+- **Methodology**: The 6-step pipeline from data collection to prediction.
+- **Algorithm Deep-Dive**: Explanations for Content, Collaborative, and Hybrid systems.
+- **Tools**: List of libraries used (Pandas, Scikit-learn, Surprise).
 
 ## 📤 Future Deployment (Commands)
+...
 
 To push your latest changes to GitHub:
 
