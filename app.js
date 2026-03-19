@@ -144,62 +144,11 @@ async function initApp() {
   // Show base movie count
   // Initialize UI components
   updateSearchTags();
-  renderWatchlist();
-
   const counter = document.getElementById('resultsCount');
   if (counter) {
     counter.textContent = '900k+ Movies';
     counter.style.display = 'block';
   }
-}
-
-// ── Personal Watchlist ────────────────────────────────────────
-function toggleWatchlist(id, type, btn) {
-    let list = JSON.parse(localStorage.getItem('cineworld_watchlist') || '[]');
-    const exists = list.find(item => item.id === id && item.type === type);
-    
-    if (exists) {
-        list = list.filter(item => !(item.id === id && item.type === type));
-        btn.classList.remove('active');
-    } else {
-        list.push({ id, type, addedAt: new Date().getTime() });
-        btn.classList.add('active');
-    }
-    
-    localStorage.setItem('cineworld_watchlist', JSON.stringify(list));
-    renderWatchlist();
-}
-
-async function renderWatchlist() {
-    const list = JSON.parse(localStorage.getItem('cineworld_watchlist') || '[]');
-    const row = document.getElementById('watchlistRow');
-    const container = document.getElementById('watchlistCards');
-    if (!container) return;
-    
-    if (list.length === 0) {
-        row.style.display = 'none';
-        return;
-    }
-    
-    row.style.display = 'block';
-    container.innerHTML = '';
-    
-    // Reverse to show newest first
-    const items = [...list].reverse();
-    for (const item of items) {
-        try {
-            const m = await api(`${item.type}/${item.id}`);
-            if (!m.media_type) m.media_type = item.type;
-            container.appendChild(createCard(m));
-        } catch(e) {}
-    }
-}
-
-function clearWatchlist() {
-    if (confirm("Clear your entire watchlist?")) {
-        localStorage.setItem('cineworld_watchlist', '[]');
-        renderWatchlist();
-    }
 }
 
 
@@ -387,16 +336,11 @@ function createCard(movie, showNewBadge = false) {
   const year   = (movie.release_date || movie.first_air_date || '').slice(0, 4);
   const title  = movie.title || movie.name || 'Unknown';
   const isNew  = showNewBadge && year == new Date().getFullYear();
-  
-  // Watchlist check
-  const watchlist = JSON.parse(localStorage.getItem('cineworld_watchlist') || '[]');
-  const isInWatchlist = watchlist.some(item => item.id === movie.id);
 
   div.innerHTML = `
     ${poster ? `<img class="card-poster" src="${poster}" alt="${title}" loading="lazy"/>` : `<div class="card-poster" style="background:#1a1a1a;display:flex;align-items:center;justify-content:center;font-size:3rem">🎬</div>`}
     <div class="card-rating-badge">⭐ ${rating}</div>
     ${isNew ? '<div class="card-new-badge">NEW</div>' : ''}
-    <button class="card-fav-btn ${isInWatchlist?'active':''}" onclick="event.stopPropagation();toggleWatchlist(${movie.id},'${movie.media_type||'movie'}',this)" title="Add to Watchlist">❤️</button>
     <div class="card-overlay" onclick="event.stopPropagation();openMovie(${movie.id},'${movie.media_type||'movie'}')">
       <button class="card-play-btn" onclick="event.stopPropagation();playTrailer(${movie.id},'${movie.media_type||'movie'}')">▶</button>
       <div class="card-title-ov">${title}</div>

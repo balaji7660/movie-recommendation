@@ -72,7 +72,6 @@ Predicts a user's interest by identifying patterns using user-to-user similarity
 ## 🔮 Future Enhancements
 - **Real-Time Search Tracking**: Implementation of local search logs for personal user history.
 - **Simulated User Analytics**: Dashboard visualizing global user growth and active sessions.
-- **Personal Watchlist (New)**: Localized movie archiving for custom user collections.
 - Integration of **Real-Time Feedback** loops.
 - Deployment via **Web or Mobile Applications** (e.g., the CineWorld interface).
 - Implementing **Deep Learning** models (Neural Collaborative Filtering).
